@@ -1,0 +1,5 @@
+python>=3
+requests
+pandas
+numpy
+plotly
