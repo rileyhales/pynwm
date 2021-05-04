@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.1'
+version = '0.1.1'
 name = 'pynwm'
 description = 'Tools for getting data from the United States National Water Model'
 classifiers = [
