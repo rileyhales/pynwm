@@ -16,7 +16,7 @@ class BaseClassNWM:
     df: pd.DataFrame = None
     range: str
     ensemble_options: list
-    NWM_REST_BASE = 'https://nwmdata.nohrsc.noaa.gov/latest'
+    NWM_REST_BASE = 'https://nwmdata.nohrsc.noaa.gov/latest/forecasts'
 
     def __init__(self, station_id: int):
         self.station_id = station_id
@@ -30,7 +30,7 @@ class BaseClassNWM:
                 self.data = json.loads(f.read())
             return
         if self.range == 'short_range':
-            self.urls = [f'{self.NWM_REST_BASE}/forecasts/{self.range}/streamflow?station_id={self.station_id}', ]
+            self.urls = [f'{self.NWM_REST_BASE}/{self.range}/streamflow?station_id={self.station_id}', ]
             self.data = requests.get(self.urls[0]).json()
             return
         if mean:
@@ -67,7 +67,7 @@ class BaseClassNWM:
     def get_mean(self):
         if self.data.get('mean', None) is not None:
             return self.data['mean']
-        url = f'{self.NWM_REST_BASE}/forecasts/{self.range}_ensemble_mean/streamflow?station_id={self.station_id}'
+        url = f'{self.NWM_REST_BASE}/{self.range}_ensemble_mean/streamflow?station_id={self.station_id}'
         self.urls.append(url)
         self.data['mean'] = requests.get(url).json()
         return self.data['mean']
@@ -75,7 +75,7 @@ class BaseClassNWM:
     def get_ensemble(self, number: int):
         if self.data.get(number, None) is not None:
             return self.data[number]
-        url = f'{self.NWM_REST_BASE}/forecasts/{self.range}_ensemble_member_{number}/streamflow?station_id={self.station_id}'
+        url = f'{self.NWM_REST_BASE}/{self.range}_ensemble_member_{number}/streamflow?station_id={self.station_id}'
         self.urls.append(url)
         self.data[number] = requests.get(url).json()
         return self.data[number]

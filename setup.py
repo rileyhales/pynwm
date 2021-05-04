@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '0.1.1'
+version = '0.1.2'
 name = 'pynwm'
 description = 'Tools for getting data from the United States National Water Model'
 classifiers = [
@@ -28,6 +28,8 @@ setup(
     author='Riley Hales',
     license='BSD 3-Clause Clear',
     python_requires='>=3',
+    package_data={'': ['*.json', ]},
+    include_package_data=True,
     classifiers=classifiers,
     install_requires=install_requires,
 )
